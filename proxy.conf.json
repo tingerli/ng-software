@@ -1,0 +1,29 @@
+{
+  "/soft-update":{
+    "target":"http://192.168.1.58:7071",
+    "secure": false,
+    "changeOrigin":true
+  },
+  "/roles":{
+    "target":"http://192.168.1.58:7071",
+    "secure": false,
+    "changeOrigin":true
+  },
+  "/soft_upload":{
+    "target":"http://192.168.1.58:8001",
+    "secure": false,
+    "changeOrigin":true
+  },
+  
+  "/soft_update/search":{
+    "target":"http://192.168.1.58:8001",
+    "secure": false,
+    "changeOrigin":true
+  },
+
+  "/soft_roles":{
+    "target":"http://192.168.1.58:8001",
+    "secure": false,
+    "changeOrigin":true
+  }
+}

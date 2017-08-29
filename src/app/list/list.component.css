@@ -1,0 +1,188 @@
+   * {
+       margin: 0;
+       padding: 0;
+   }
+
+   .bigTable {
+       padding: 0;
+       /*width: 900px;*/
+       margin: 0 auto;
+   }
+
+   .hTitle {
+       padding-left: 22px;
+       /*margin: 15px;*/
+       background-color: #f7f7f7;
+       border-bottom: 1px solid #ddd;
+   }
+
+   .widget-main {
+       padding: 6px;
+       padding-bottom: 0px;
+       /*padding-right: 16px;*/
+   }
+
+   .widget-main .table {
+       margin-bottom: 0px;
+   }
+
+   table.table-search {
+       border: 1px solid red;
+   }
+
+   table.table-search>tbody>tr>th {
+       padding: 1px 6px 1px 6px;
+       line-height: 35px;
+       font-weight: normal;
+       color: rgb(0, 121, 25);
+       width: 10%;
+       text-align: right;
+       vertical-align: middle;
+       background-color: #F8F8FC;
+   }
+
+   table.table-search>tbody>tr>td {
+       padding: 4px 0px 4px 6px;
+       line-height: 30px;
+       border: 1px solid #ddd;
+   }
+
+   table.table-search>tbody>tr>td>input {
+       border: 1px solid #d5d5d5;
+       padding-left: 3px;
+   }
+
+   table.table-search>tbody .btn {
+       display: inline-block
+   }
+
+   table.table-search>tbody>tr:nth-child(2)>td {
+       line-height: 10px;
+   }
+
+   .table tr.active>td,
+   .table tr.active>th,
+   .table tr>td.active,
+   .table tr>th.active {
+       background-color: #dff0d8!important;
+   }
+
+   .datatable .table > tbody > tr.active.hover td {
+       background-color: #dff0d8;
+   }
+
+   .datatable-head .datatable-wrapper thead tr {
+       text-align: center;
+   }
+
+   .datatable .table > tbody > tr > td, .datatable .table > thead > tr > th{
+       text-align: center;
+   }
+
+   .allBtn {
+       display: inline-block;
+       margin-top: 5px;
+   }
+
+   .addBtn,
+   .deleteBtn {
+       display: inline-block;
+       margin: 0 5px;
+   }
+
+   .btn-search,
+   .addBtn,
+   .btn-delete {
+       background-color: #6fb3e0!important;
+       border-color: #6fb3e0!important;
+       border-width: 4px;
+       font-size: 13px;
+       padding: 4px 9px;
+       line-height: 1.39;
+       border-radius: 0;
+       text-shadow: 0 0px 0 rgba(0, 0, 0, 0.3) !important;
+       color: #fff!important;
+   }
+
+   .btn-search:hover,
+   .addBtn:hover {
+       border-color: #6fb3e0;
+       background-color: #609bc1!important;
+   }
+
+   .btn-delete {
+       background-color: #d15b47!important;
+       border-color: #d15b47!important;
+   }
+
+   .btn-delete:hover {
+       border-color: #d15b47;
+       background-color: #b35140!important;
+   }
+
+   .widget-box {
+       padding: 0;
+       -webkit-box-shadow: none;
+       box-shadow: none;
+       margin: 3px 0;
+   }
+
+   .widget-header {
+       -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+       box-sizing: content-box;
+       position: relative;
+       min-height: 38px;
+       color: #669fc7;
+       border-top: 1px solid #CCC;
+       /*border-bottom: 1px solid #DDD;*/
+   }
+
+   .widget-header h4 {
+       line-height: 36px;
+       padding: 0;
+       margin: 0;
+       display: inline;
+       color: #478fca!important;
+       font-size: 18px;
+       font-weight: normal;
+       font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+   }
+
+   .widget-body table {
+       /*width: 900px;*/
+   }
+   /*#mainSearch {
+       margin-top: 5px;
+   }*/
+
+   #allBtn {
+       margin-top: 3px;
+   }
+
+   .viewrole {
+       width: 200px;
+       height: 200px;
+       border: 1px solid #000;
+   }
+
+   ul.roleLi {
+       background-color: #f5f5f5;
+       position: absolute;
+       left: 0px;
+       list-style: none;
+       color: #222;
+       padding: 7px;
+   }
+
+   .editBtn {
+       margin-right: 7px;
+   }
+
+   #mainSearch table {
+       width: 100%;
+   }
+
+   .datatable {
+       margin: 0;
+   }
