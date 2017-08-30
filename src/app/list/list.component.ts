@@ -198,6 +198,10 @@ export class ListComponent implements OnInit {
 
   onAddItem() {
 
+    if (!this.roleIds || !this.softName || !this.version || !this.files) {
+      alert('请输入完整信息')
+      return;
+    }
     console.log(this.roleIds);
     console.log(this.files);
     this.createUserId = 3;
@@ -249,7 +253,7 @@ export class ListComponent implements OnInit {
       $('select.chosen-select option:selected').prop('selected', false);
       ($('select.chosen-select') as any).trigger('chosen:updated');
       $('#progress').html('');
-      $('progress').removeAttr('value');
+      $('progress').removeAttr('value').removeAttr('max');
     })
 
 
@@ -257,13 +261,23 @@ export class ListComponent implements OnInit {
   }
 
   onBtnSearch() {
-    var searchUrl = '/soft-update/soft_update/search?softName=' + this.searchName + '&pageNum=1&limit=10';
-    this.paginateurl = '/soft-update/soft_update/search?softName=' + this.searchName + '&';
-    this.render(searchUrl);
+    // if (this.searchName) {
+      var searchUrl = '/soft-update/soft_update/search?softName=' + this.searchName + '&pageNum=1&limit=10';
+      this.paginateurl = '/soft-update/soft_update/search?softName=' + this.searchName + '&';
+      this.render(searchUrl);
+      
+    // } else {
+    //    this.render("/soft-update/soft_update?pageNum=1&limit=10");
+    //    setTimeout(function(){
+    //      $('p-paginator').attr('first','0');
+    //    })
+    // }
+
   }
 
   paginate(event) {
     this.loading = true;
+    console.log(event.page);
     var paginateURL = this.paginateurl + "pageNum=" + (event.page + 1) + "&limit=" + event.rows;
     this.render(paginateURL);
   }
