@@ -7,51 +7,6 @@
         <h4 class="blue"><b>软件列表</b></h4>
       </div>
 
-      <!--<div class="row">
-        <div id="mainSearch" class="widget-toolbar no-border bold col-md-3">
-          <input type="text" cname="softName" operate="eq" placeholder="请输入软件名称" [(ngModel)]="searchName">
-        </div>
-      </div>
-      <div class="widget-toolbar no-border col-md-5" id="allBtn">
-        <div class="widget-toolbar no-border">
-          <button id="btn229" class="btn btn-success" (click)="onBtnSearch();">
-                <i class="icon-search icon-on-right"></i>搜索
-            </button>
-          <button type="button" class="btn btn-primary addBtn" data-target="#myModal">新增</button>
-          <button class="btn btn-warning " type="button" (click)="moreDel()">批量删除</button>
-
-          
-          <div class="modal fade" id="myModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
-                  <h4 class="modal-title">标题</h4>
-                </div>
-                <div class="modal-body">
-                  <label class="required">软件名：</label><input type="text" class="form-control" placeholder="请输入软件名" required
-                    [(ngModel)]="softName">
-                  <label class="required">版本号：</label><input type="text" class="form-control" placeholder="请输入版本号" required
-                    [(ngModel)]="version">
-                  <label class="required">权限人：</label><select data-placeholder="添加权限人" class="chosen-select form-control"
-                    tabindex="2" multiple="" id="sel">
-
-                    <option [value]="role.roleid" *ngFor="let role of roles">{{role.rolename}}</option>
-                  </select>
-                  <label class="required">上传文件：</label>
-                  <input type="file" class="form-control" value="" id="file" (change)="onUpload($event)">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                  <button type="submit" class="btn btn-primary" (click)="onAddItem()">保存</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>-->
-
       <div id="mainSearch" class="widget-main">
         <table class="table table-bordered table-search">
           <tbody>
@@ -99,8 +54,8 @@
               <input type="file" class="form-control" value="" id="file" (change)="onUpload($event)">
               <span></span><br>
               上传进度：
-              <progress></progress><br/>
-              <p id="progress">0 bytes</p>
+              <progress value="0"></progress><br/>
+              <p id="progress"></p>
               <p id="info"></p>
             </div>
             <div class="modal-footer">
@@ -114,7 +69,7 @@
 
     <div class="widget-body widget-main">
 
-      <table class="table datatable table-auto table-bordered table-striped" data-checkable="true">
+      <table class="table datatable table-auto table-bordered table-striped" data-checkable="true" style="display:none">
         <thead>
           <tr class="text-center">
             <th style="display:none">id</th>
@@ -179,4 +134,8 @@
 
   </div>
   <p-paginator rows="10" [totalRecords]="totalNum" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)"></p-paginator>
+
+  <div class="overLayer" *ngIf="loading">
+    <img src="../../assets/images/loading.gif" alt="" class="img">
+  </div>
 </div>

@@ -3,6 +3,28 @@
        padding: 0;
    }
 
+   .overLayer {
+       position: absolute;
+       z-index: 2000;
+       background-color: rgb(238, 238, 238);
+       opacity: 0.6;
+       margin:147px auto 0px;
+       top: 0;
+       right: 0px;
+       left: 0;
+       bottom: 0px;
+       /*display: none;*/
+   }
+
+   .overLayer .img {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+       width: 60px;
+       height: 60px;
+   }
+
    .bigTable {
        padding: 0;
        /*width: 900px;*/
@@ -67,7 +89,7 @@
        background-color: #dff0d8!important;
    }
 
-   .datatable .table > tbody > tr.active.hover td {
+   .datatable .table>tbody>tr.active.hover td {
        background-color: #dff0d8;
    }
 
@@ -75,7 +97,8 @@
        text-align: center;
    }
 
-   .datatable .table > tbody > tr > td, .datatable .table > thead > tr > th{
+   .datatable .table>tbody>tr>td,
+   .datatable .table>thead>tr>th {
        text-align: center;
    }
 

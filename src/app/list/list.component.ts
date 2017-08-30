@@ -35,6 +35,7 @@ export class ListComponent implements OnInit {
   versionDom: object;
   paginateurl: string = "/soft-update/soft_update?";
   totalSize: number = 0;
+  loading: boolean = false;
 
   constructor(private http: Http) {
 
@@ -73,7 +74,13 @@ export class ListComponent implements OnInit {
       })
     });
 
-
+    // $(document).ajaxStart(function(){
+    //   $('.overLayer').show();
+    //   console.log(111)
+    // }).ajaxStop(function(){
+    //     $('.overLayer').hide();
+    //   console.log(2122)
+    // })
 
   }
 
@@ -86,93 +93,98 @@ export class ListComponent implements OnInit {
 
 
   render(url) {
+    this.loading = true;
     let headers = new Headers();
     headers.append('Authorization', 'DG1df5%$^@SD');
     this.http.get(url, { headers }).subscribe(data => {
-      this.results = data.json()['data']['list'];
-      console.log(this.results);
-      this.totalNum = data.json()['data'].total;
-      var self = this;
-      setTimeout(function () {
-        // 渲染列表
-        ($('table.datatable') as any).datatable({
-          checkByClickRow: false,
-          storage: false
-        });
-        ($('table.datatable') as any).datatable('load');
+      if (data.json()['code'] == 200) {
+        this.results = data.json()['data']['list'];
+        console.log(this.results);
+        this.totalNum = data.json()['data'].total;
+        var self = this;
+        setTimeout(function () {
+          self.loading = false;
+          // 渲染列表
+          ($('table.datatable') as any).datatable({
+            checkByClickRow: false,
+            storage: false
+          });
+          ($('table.datatable') as any).datatable('load');
 
-        // 点击查看按钮,查看软件列表权限
-        $('.widget-body tbody td button.viewBtn').click(function (e) {
+          // 点击查看按钮,查看软件列表权限
+          $('.widget-body tbody td button.viewBtn').click(function (e) {
 
-          var target = e.target.parentNode.parentNode;
-          var roleID = $(target).children().eq(9).text();
+            var target = e.target.parentNode.parentNode;
+            var roleID = $(target).children().eq(9).text();
 
-          self.http.get('/soft-update/soft_roles', { params: { role_id: roleID }, headers }).subscribe(data => {
-            self.roleIdList = data.json().data.list;
-            self.showDialog();
+            self.http.get('/soft-update/soft_roles', { params: { role_id: roleID }, headers }).subscribe(data => {
+              self.roleIdList = data.json().data.list;
+              self.showDialog();
+            })
+
           })
 
-        })
+          // 点击启用禁用按钮
+          $('.enable').click(function () {
+            var enableJson,
+              enableURL,
+              enableId,
+              _self = this;
+            enableId = $(this.parentNode.parentNode).children().eq(1)[0].innerHTML;
+            enableURL = '/soft-update/soft_update/' + enableId;
+            let headers = new Headers();
+            headers.append('Authorization', 'DG1df5%$^@SD');
+            if ($(this).html() == "未启用") {
 
-        // 点击启用禁用按钮
-        $('.enable').click(function () {
-          var enableJson,
-            enableURL,
-            enableId,
-            _self = this;
-          enableId = $(this.parentNode.parentNode).children().eq(1)[0].innerHTML;
-          enableURL = '/soft-update/soft_update/' + enableId;
-          let headers = new Headers();
-          headers.append('Authorization', 'DG1df5%$^@SD');
-          if ($(this).html() == "未启用") {
+              enableJson = {
+                "enable": true,
+              }
+              self.http.put(enableURL, enableJson, { headers }).subscribe(data => {
+                if (data.json()['code'] == 200) {
+                  _self.innerHTML = '已启用';
+                  _self.className = 'btn-primary btn enable';
+                }
+              });
 
-            enableJson = {
-              "enable": true,
+            } else {
+              enableJson = {
+                "enable": false,
+              }
+              self.http.put(enableURL, enableJson, { headers }).subscribe(data => {
+                if (data.json()['code'] == 200) {
+                  _self.innerHTML = '未启用';
+                  _self.className = 'btn enable';
+                }
+              });
             }
-            self.http.put(enableURL, enableJson, { headers }).subscribe(data => {
-              if (data.json()['code'] == 200) {
-                _self.innerHTML = '已启用';
-                _self.className = 'btn-primary btn enable';
-              }
-            });
+          })
 
-          } else {
-            enableJson = {
-              "enable": false,
+          // 点击删除按钮
+          $('.delBtn').click(function () {
+            if (confirm('是否删除这个软件？')) {
+              var delId = $(this.parentNode.parentNode).children().eq(1)[0].innerHTML;
+              var delURL = '/soft-update/soft_update/' + delId;
+              self.http.delete(delURL, { headers }).subscribe(data => {
+                if (data.json()['code'] == 200) {
+                  $(this.parentNode.parentNode).remove();
+                } else {
+                  alert(data.json()['data']);
+                }
+              })
             }
-            self.http.put(enableURL, enableJson, { headers }).subscribe(data => {
-              if (data.json()['code'] == 200) {
-                _self.innerHTML = '未启用';
-                _self.className = 'btn enable';
-              }
-            });
-          }
-        })
+          })
 
-        // 点击删除按钮
-        $('.delBtn').click(function () {
-          if (confirm('是否删除这个软件？')) {
-            var delId = $(this.parentNode.parentNode).children().eq(1)[0].innerHTML;
-            var delURL = '/soft-update/soft_update/' + delId;
-            self.http.delete(delURL, { headers }).subscribe(data => {
-              if (data.json()['code'] == 200) {
-                $(this.parentNode.parentNode).remove();
-              } else {
-                alert(data.json()['data']);
-              }
-            })
-          }
-        })
+          // 编辑按钮
+          $('.editBtn').click(function () {
+            ($('#myModal2') as any).modal();
+            self.versionDom = $(this.parentNode.parentNode).children().eq(3);
+            self.upDatedVersion = $(this.parentNode.parentNode).children().eq(3).html();
+            self.upDatedId = $(this.parentNode.parentNode).children().eq(1).html();
+          })
 
-        // 编辑按钮
-        $('.editBtn').click(function () {
-          ($('#myModal2') as any).modal();
-          self.versionDom = $(this.parentNode.parentNode).children().eq(3);
-          self.upDatedVersion = $(this.parentNode.parentNode).children().eq(3).html();
-          self.upDatedId = $(this.parentNode.parentNode).children().eq(1).html();
-        })
+        });
 
-      });
+      }
 
     });
   }
@@ -236,8 +248,8 @@ export class ListComponent implements OnInit {
       $("input[type='file']").val('');
       $('select.chosen-select option:selected').prop('selected', false);
       ($('select.chosen-select') as any).trigger('chosen:updated');
-       $('#progress').html('');
-       $('progress').removeAttr('value');
+      $('#progress').html('');
+      $('progress').removeAttr('value');
     })
 
 
@@ -251,6 +263,7 @@ export class ListComponent implements OnInit {
   }
 
   paginate(event) {
+    this.loading = true;
     var paginateURL = this.paginateurl + "pageNum=" + (event.page + 1) + "&limit=" + event.rows;
     this.render(paginateURL);
   }
